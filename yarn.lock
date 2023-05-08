@@ -1040,6 +1040,11 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
+primevue@^3.28.0:
+  version "3.28.0"
+  resolved "https://registry.yarnpkg.com/primevue/-/primevue-3.28.0.tgz#bc16ef1163477e82b9c4a2b4f08d7959bd462050"
+  integrity sha512-yLHvmtTUvO4znfQqcOYHO8H/l0sBHqfvzPAhu4rKNSRjyrj/KO1cP0S+1aa5zGsspaKxXfi2bhhzwSDD0xXwgA==
+
 punycode@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
