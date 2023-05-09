@@ -1,9 +1,7 @@
 <template>
-  <div class="ma-3">
+  <div class="h-screen">
     <router-view />
   </div>
 </template>
 
-<script setup>
-//
-</script>
+<script></script>

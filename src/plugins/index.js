@@ -5,15 +5,24 @@
  */
 
 // Plugins
-import { loadFonts } from './webfontloader'
-import vuetify from './vuetify'
-import pinia from '../store'
-import router from '../router'
+import PrimeVue from "primevue/config";
+import pinia from "../store";
+import router from "../router";
+// CSS
+import "primevue/resources/themes/lara-light-indigo/theme.css";
+import "primevue/resources/primevue.min.css";
+import "primeflex/primeflex.css";
+import "primeicons/primeicons.css";
+import "@/styles/main.css";
 
-export function registerPlugins (app) {
-  loadFonts()
-  app
-    .use(vuetify)
-    .use(router)
-    .use(pinia)
+// Components
+import Button from "primevue/button";
+import AutoComplete from "primevue/autocomplete";
+import Chip from "primevue/chip";
+
+export function registerPlugins(app) {
+  app.use(PrimeVue).use(router).use(pinia);
+  app.component("VButton", Button);
+  app.component("VAutoComplete", AutoComplete);
+  app.component("VChip", Chip);
 }

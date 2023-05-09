@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'starwars';
+  src: url('@/assets/fonts/starwars.ttf') format('truetype');
+}
+
+body {
+  font-family: 'starwars';
+}
+
+.sw-background {
+  background-color:rgb(21, 29, 29);
+}
+
+.sw-text {
+  color: #FFE81F;
+}
+
+.sw-title {
+  font-size: 1.8em;
+}
+
+.sw-page-title {
+  font-size: 1.2em;
+}

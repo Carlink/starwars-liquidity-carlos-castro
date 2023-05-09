@@ -1,74 +1,84 @@
 <template>
-  <v-autocomplete
-    v-model="friends"
-    :disabled="isUpdating"
-    :items="people"
-    box
-    chips
-    color="blue-grey lighten-2"
-    label="Select"
-    item-text="name"
-    item-value="name"
-    multiple
-  >
-    <template v-slot:selection="data">
-      <v-chip
-        :selected="data.selected"
-        close
-        class="chip--select-multi"
-        @input="remove(data.item)"
-      >
-        <v-avatar>
-          <img :src="data.item.avatar" />
-        </v-avatar>
-        {{ data.item.name }}
-      </v-chip>
-    </template>
-    <template v-slot:item="data">
-      <template v-if="typeof data.item !== 'object'">
-        <v-list-tile-content>{{ data.item }}</v-list-tile-content>
+  <div class="card flex justify-content-center">
+    <v-auto-complete
+      v-model="swQuery"
+      :suggestions="swGroupedCategories"
+      optionLabel="label"
+      optionGroupLabel="label"
+      optionGroupChildren="items"
+      placeholder="Search Something About Star Wars"
+      :inputStyle="{ width: '400px' }"
+    >
+      <template #optiongroup="slotProps">
+        <div class="flex align-items-center country-item">
+          <div>{{ slotProps.item.label }}</div>
+        </div>
       </template>
-      <template v-else>
-        <v-list-tile-avatar>
-          <img :src="data.item.avatar" />
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title>{{ data.item.name }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ data.item.group }}</v-list-tile-sub-title>
-        </v-list-tile-content>
+      <template #option="slotProps">
+        <div
+          class="flex align-options-center"
+          :class="slotProps.option.category && 'justify-content-end'"
+        >
+          <div
+            v-if="slotProps.option.category"
+            class="flex align-options-center text-primary"
+            @click="goToCategory(slotProps.option.category)"
+          >
+            <div>{{ slotProps.option.label }}</div>
+            <i
+              v-if="slotProps.option.category"
+              class="pi pi-arrow-right primary ml-2"
+              style="font-size: 1.2rem"
+            ></i>
+          </div>
+          <div v-else v-html="slotProps.option.label"></div>
+        </div>
       </template>
-    </template>
-  </v-autocomplete>
+    </v-auto-complete>
+  </div>
 </template>
 
 <script>
-export default {
-  data() {
-    const srcs = {
-      1: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-      2: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-      3: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-      4: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-      5: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-    };
+import { useAppStore } from "@/store/app";
 
+export default {
+  setup() {
+    const { getAllCategories, swData } = useAppStore();
+    return { getAllCategories, swData };
+  },
+  data() {
     return {
-      friends: ["Sandra Adams", "Britta Holt"],
-      people: [
-        { header: "Group 1" },
-        { name: "Sandra Adams", group: "Group 1", avatar: srcs[1] },
-        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
-        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
-        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] },
-        { divider: true },
-        { header: "Group 2" },
-        { name: "Britta Holt", group: "Group 2", avatar: srcs[4] },
-        { name: "Jane Smith ", group: "Group 2", avatar: srcs[5] },
-        { name: "John Smith", group: "Group 2", avatar: srcs[1] },
-        { name: "Sandra Williams", group: "Group 2", avatar: srcs[3] },
-      ],
-      title: "The summer breeze",
+      swQuery: [],
+      swGroupedCategories: [],
     };
+  },
+  watch: {
+    swGroupedCategories(val) {
+      console.log("categories has changes", val);
+    },
+    swQuery(searchString) {
+      if (!searchString) {
+        return;
+      }
+
+      this.clearEntries();
+      this.fetchEntriesDebounced();
+    },
+  },
+  methods: {
+    clearEntries() {
+      this.swSuggestions = [];
+    },
+    fetchEntriesDebounced() {
+      clearTimeout(this._searchTimerId);
+      this._searchTimerId = setTimeout(async () => {
+        const response = await this.getAllCategories(this.swQuery);
+        this.swGroupedCategories = response;
+      }, 1000);
+    },
+    goToCategory(category) {
+      this.$router.push(category);
+    },
   },
 };
 </script>
