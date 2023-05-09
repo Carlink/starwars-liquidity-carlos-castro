@@ -23,6 +23,7 @@ export const useAppStore = defineStore("app", {
     ],
     swData: null,
     searchTerm: "",
+    categoryViewData: {},
   }),
   actions: {
     async getAllCategories(searchQuery) {
@@ -53,6 +54,33 @@ export const useAppStore = defineStore("app", {
       this.swData = await Promise.all(swPromises);
       return this.swGroupedCategories;
     },
+    async getCategory(category) {
+      const url = import.meta.env.VITE_SW_API;
+      const options = {
+        method: "GET",
+      };
+      const response = await fetch(`${url}${category}`, options);
+      const jsonResponse = await response.json();
+      console.log("sending data", jsonResponse.results);
+      this.categoryViewData = jsonResponse.results;
+      return jsonResponse.results;
+    },
+    // TODO ERASE ITEM
+    eraseItem(item) {
+      console.log("categoryViewData", this.categoryViewData);
+      this.categoryViewData = this.categoryViewData.filter((el) => {
+        return el.name !== item.name;
+      });
+      return this.categoryViewData;
+    },
+    // TODO EDIT ITEM
+    // async editItem(item) {
+
+    // }
+    // TODO NEW ITEM
+    // async newItem(item) {
+
+    // }
   },
   getters: {
     swGroupedCategories: (state) => {

@@ -19,10 +19,18 @@ import "@/styles/main.css";
 import Button from "primevue/button";
 import AutoComplete from "primevue/autocomplete";
 import Chip from "primevue/chip";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import ColumnGroup from "primevue/columngroup"; // optional
+import Row from "primevue/row";
 
 export function registerPlugins(app) {
   app.use(PrimeVue).use(router).use(pinia);
   app.component("VButton", Button);
   app.component("VAutoComplete", AutoComplete);
   app.component("VChip", Chip);
+  app.component("VDataTable", DataTable);
+  app.component("VColumn", Column);
+  app.component("VColumnGroup", ColumnGroup);
+  app.component("VRow", Row);
 }
