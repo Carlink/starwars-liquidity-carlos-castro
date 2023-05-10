@@ -49,7 +49,13 @@
 </template>
 
 <script>
+import { useStoreToast } from "@/store/toast";
+
 export default {
+  setup() {
+    const { toast } = useStoreToast();
+    return { toast };
+  },
   props: {
     data: {
       required: true,
@@ -63,6 +69,11 @@ export default {
   methods: {
     remove(item) {
       this.$emit("erase", item);
+      this.toast.add({
+        severity: "success",
+        summary: `${item.name} succesfully removed.`,
+        life: 3000,
+      });
     },
   },
 };

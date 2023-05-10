@@ -27,8 +27,8 @@ export default {
     StarWarsList,
   },
   setup() {
-    const { getCategory, eraseItem } = useAppStore();
-    return { getCategory, eraseItem };
+    const { getCategory, eraseItem, getMockCategory } = useAppStore();
+    return { getCategory, eraseItem, getMockCategory };
   },
   data() {
     return {
@@ -53,9 +53,11 @@ export default {
     async fetchCategory() {
       if (this.$route.params?.category) {
         this.loading = true;
-        this.categoryViewData = await this.getCategory(
-          this.$route.params.category
-        );
+        // this.categoryViewData = await this.getCategory(
+        //   this.$route.params.category
+        // );
+        this.categoryViewData = this.getMockCategory();
+        console.log("this.categoryViewData", this.categoryViewData);
         this.loading = false;
       } else {
         console.log("no category");

@@ -23,6 +23,10 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import ColumnGroup from "primevue/columngroup"; // optional
 import Row from "primevue/row";
+import Dialog from "primevue/dialog";
+import InputText from "primevue/inputtext";
+import Toast from "primevue/toast";
+import ToastService from "primevue/toastservice";
 
 export function registerPlugins(app) {
   app.use(PrimeVue).use(router).use(pinia);
@@ -33,4 +37,8 @@ export function registerPlugins(app) {
   app.component("VColumn", Column);
   app.component("VColumnGroup", ColumnGroup);
   app.component("VRow", Row);
+  app.component("VDialog", Dialog);
+  app.component("VInputText", InputText);
+  app.component("VToast", Toast);
+  app.use(ToastService);
 }

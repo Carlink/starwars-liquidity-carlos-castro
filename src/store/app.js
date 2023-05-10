@@ -2,6 +2,7 @@
 // it uses almost the same sintaxis and structure
 
 import { defineStore } from "pinia";
+import mock_json from "@/assets/request_mock/page1.json";
 
 const highlightText = (string, highlightString) => {
   var reg = new RegExp(highlightString, "gi");
@@ -65,9 +66,12 @@ export const useAppStore = defineStore("app", {
       this.categoryViewData = jsonResponse.results;
       return jsonResponse.results;
     },
+    getMockCategory() {
+      this.categoryViewData = mock_json.results;
+      return mock_json.results;
+    },
     // TODO ERASE ITEM
     eraseItem(item) {
-      console.log("categoryViewData", this.categoryViewData);
       this.categoryViewData = this.categoryViewData.filter((el) => {
         return el.name !== item.name;
       });
