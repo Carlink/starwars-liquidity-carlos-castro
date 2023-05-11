@@ -8,11 +8,13 @@ const routes = [
     path: "/",
     name: "HomeView",
     component: HomeView,
+    meta: { transition: "slide-left" },
   },
   {
     path: "/:category",
     name: "Category",
     component: CategoryView,
+    meta: { transition: "slide-left" },
   },
 ];
 

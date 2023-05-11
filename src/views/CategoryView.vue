@@ -16,6 +16,11 @@
         :data="categoryViewData"
         @erase="erase"
       />
+      <v-paginator
+        v-model:first="pagination"
+        :rows="1"
+        :totalRecords="totalRecords"
+      ></v-paginator>
     </div>
     <star-wars-form
       v-model:visible="formDialog"
@@ -54,7 +59,14 @@ export default {
       categoryViewData: [],
       loading: false,
       formDialog: false,
+      totalRecords: 0,
+      pagination: 0,
     };
+  },
+  watch: {
+    pagination(val) {
+      this.fetchCategory(val + 1);
+    },
   },
   computed: {
     getCategoryFromRoute() {
@@ -67,16 +79,16 @@ export default {
   },
   mounted() {
     console.log("this.$route", this.$route.params.category);
-    this.fetchCategory();
+    this.fetchCategory(1);
   },
   methods: {
-    async fetchCategory() {
+    async fetchCategory(page) {
       if (this.$route.params?.category) {
         this.loading = true;
-        // this.categoryViewData = await this.getCategory(
-        //   this.$route.params.category
-        // );
-        this.categoryViewData = this.getMockCategory();
+        const resp = await this.getCategory(this.$route.params.category, page);
+        this.categoryViewData = resp.results;
+        this.totalRecords = resp.count;
+        // this.categoryViewData = this.getMockCategory();
         console.log("this.categoryViewData", this.categoryViewData);
         this.loading = false;
       } else {

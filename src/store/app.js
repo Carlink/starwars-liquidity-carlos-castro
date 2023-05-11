@@ -55,29 +55,26 @@ export const useAppStore = defineStore("app", {
       this.swData = await Promise.all(swPromises);
       return this.swGroupedCategories;
     },
-    async getCategory(category) {
+    async getCategory(category, page = 1) {
       const url = import.meta.env.VITE_SW_API;
       const options = {
         method: "GET",
       };
-      const response = await fetch(`${url}${category}`, options);
+      const response = await fetch(`${url}${category}/?page=${page}`, options);
       const jsonResponse = await response.json();
-      console.log("sending data", jsonResponse.results);
       this.categoryViewData = jsonResponse.results;
-      return jsonResponse.results;
+      return jsonResponse;
     },
     getMockCategory() {
       this.categoryViewData = mock_json.results;
       return mock_json.results;
     },
-    // TODO ERASE ITEM
     eraseItem(item) {
       this.categoryViewData = this.categoryViewData.filter((el) => {
         return el.name !== item.name;
       });
       return this.categoryViewData;
     },
-    // TODO EDIT ITEM
     async editItem(index, item) {
       try {
         this.categoryViewData[index] = {
@@ -89,7 +86,6 @@ export const useAppStore = defineStore("app", {
         return false;
       }
     },
-    // TODO NEW ITEM
     newItem(item) {
       try {
         this.categoryViewData.unshift(item);

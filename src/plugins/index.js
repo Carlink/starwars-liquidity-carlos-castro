@@ -29,6 +29,7 @@ import Toast from "primevue/toast";
 import ToastService from "primevue/toastservice";
 import Dropdown from "primevue/dropdown";
 import Calendar from "primevue/calendar";
+import Paginator from "primevue/paginator";
 
 export function registerPlugins(app) {
   app.use(PrimeVue).use(router).use(pinia);
@@ -44,5 +45,6 @@ export function registerPlugins(app) {
   app.component("VToast", Toast);
   app.component("VDropdown", Dropdown);
   app.component("VCalendar", Calendar);
+  app.component("VPaginator", Paginator);
   app.use(ToastService);
 }
