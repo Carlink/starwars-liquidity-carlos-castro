@@ -27,6 +27,8 @@ import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
 import Toast from "primevue/toast";
 import ToastService from "primevue/toastservice";
+import Dropdown from "primevue/dropdown";
+import Calendar from "primevue/calendar";
 
 export function registerPlugins(app) {
   app.use(PrimeVue).use(router).use(pinia);
@@ -40,5 +42,7 @@ export function registerPlugins(app) {
   app.component("VDialog", Dialog);
   app.component("VInputText", InputText);
   app.component("VToast", Toast);
+  app.component("VDropdown", Dropdown);
+  app.component("VCalendar", Calendar);
   app.use(ToastService);
 }

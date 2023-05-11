@@ -78,13 +78,26 @@ export const useAppStore = defineStore("app", {
       return this.categoryViewData;
     },
     // TODO EDIT ITEM
-    // async editItem(item) {
-
-    // }
+    async editItem(index, item) {
+      try {
+        this.categoryViewData[index] = {
+          ...this.categoryViewData[index],
+          ...item,
+        };
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
     // TODO NEW ITEM
-    // async newItem(item) {
-
-    // }
+    newItem(item) {
+      try {
+        this.categoryViewData.unshift(item);
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
   },
   getters: {
     swGroupedCategories: (state) => {
